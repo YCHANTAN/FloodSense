@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCredentials, setStatus } from '../authSlice';
-import { login, register } from '../services/authApi';
 import Button from '@/components/Button/Button';
+import Input from '@/components/Input/Input';
+import { Waves } from 'lucide-react';
 
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -38,61 +39,64 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] flex items-center justify-center p-4 font-inter">
-      <div className="w-full max-w-md bg-[#1e293b] rounded-3xl p-8 border border-slate-700 shadow-2xl">
-        <h1 className="text-3xl font-poppins font-bold text-white mb-2 text-center">
-          {isLogin ? 'Welcome Back' : 'Join FloodSense'}
-        </h1>
-        <p className="text-slate-400 text-center mb-8">
-          {isLogin ? 'Secure your community today.' : 'Help us map real-time flood data.'}
-        </p>
+    <div className="min-h-screen bg-deep-slate flex flex-col items-center justify-center p-4">
+      {/* Branding */}
+      <div className="flex items-center gap-2 mb-8 group cursor-pointer" onClick={() => navigate('/')}>
+        <div className="bg-vivid-cyan p-2 rounded-xl">
+          <Waves className="text-deep-slate w-8 h-8" />
+        </div>
+        <span className="font-display text-3xl font-bold text-off-white tracking-tight">
+          Flood<span className="text-vivid-cyan">Sense</span>
+        </span>
+      </div>
+
+      <div className="w-full max-w-md bg-muted-navy rounded-3xl p-8 border border-white/5 shadow-2xl">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-display font-bold text-off-white mb-2">
+            {isLogin ? 'Welcome Back' : 'Join FloodSense'}
+          </h1>
+          <p className="text-cool-gray font-sans">
+            {isLogin ? 'Secure your community today.' : 'Help us map real-time flood data.'}
+          </p>
+        </div>
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-xl mb-6 text-sm text-center">
+          <div className="bg-brickwood-crimson/10 border border-brickwood-crimson/50 text-brickwood-crimson p-4 rounded-xl mb-6 text-sm text-center font-sans">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {!isLogin && (
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
-              <input
-                type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#06b6d4] transition-colors"
-                placeholder="John Doe"
-              />
-            </div>
+            <Input
+              label="Full Name"
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Cebu Resident"
+            />
           )}
 
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#06b6d4] transition-colors"
-              placeholder="name@example.com"
-            />
-          </div>
+          <Input
+            label="Email Address"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="resident@floodsense.dev"
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#06b6d4] transition-colors"
-              placeholder="••••••••"
-            />
-          </div>
+          <Input
+            label="Password"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+          />
 
-          <Button type="submit" className="w-full h-12">
+          <Button type="submit" className="w-full h-12 text-lg">
             {isLogin ? 'Sign In' : 'Create Account'}
           </Button>
         </form>
@@ -100,12 +104,16 @@ const AuthPage: React.FC = () => {
         <div className="mt-8 text-center">
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-[#06b6d4] hover:underline text-sm font-medium"
+            className="text-vivid-cyan hover:underline text-sm font-medium font-sans"
           >
             {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
           </button>
         </div>
       </div>
+
+      <p className="mt-8 text-cool-gray text-xs font-sans">
+        Protecting Cebu City, one report at a time.
+      </p>
     </div>
   );
 };
