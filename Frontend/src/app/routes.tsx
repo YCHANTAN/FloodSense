@@ -4,15 +4,20 @@ import LiveMap from '@/features/map/components/LiveMap';
 import SubmitReportPage from '@/features/reports/pages/SubmitReportPage';
 import AuthPage from '@/features/auth/pages/AuthPage';
 import ProfilePage from '@/features/profile/pages/ProfilePage';
+import LandingPage from '@/features/landing/pages/LandingPage';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <LandingPage />,
+  },
   {
     path: '/login',
     element: <AuthPage />,
   },
   {
-    path: '/',
+    path: '/map',
     element: (
       <ProtectedRoute>
         <LiveMap />
