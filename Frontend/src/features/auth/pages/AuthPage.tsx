@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCredentials, setStatus } from '../authSlice';
+import { login, register } from '../services/authApi';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import { Waves } from 'lucide-react';
@@ -10,6 +11,7 @@ const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   
@@ -19,23 +21,29 @@ const AuthPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (!isLogin && password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     dispatch(setStatus('loading'));
 
-    // Bypassing API calls for immediate access
-    setTimeout(() => {
-      const mockResponse = {
-        user: {
-          id: 'mock-123',
-          email: email || 'resident@floodsense.dev',
-          name: name || 'Cebu Resident',
-        },
-        token: 'mock-dev-token',
-      };
+    try {
+      let response;
+      if (isLogin) {
+        response = await login({ email, password });
+      } else {
+        response = await register({ name, email, password });
+      }
       
-      dispatch(setCredentials(mockResponse));
+      dispatch(setCredentials(response));
       dispatch(setStatus('idle'));
       navigate('/');
-    }, 500);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Authentication failed. Please check your credentials.');
+      dispatch(setStatus('failed'));
+    }
   };
 
   return (
@@ -95,6 +103,17 @@ const AuthPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
           />
+
+          {!isLogin && (
+            <Input
+              label="Confirm Password"
+              type="password"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="••••••••"
+            />
+          )}
 
           <Button type="submit" className="w-full h-12 text-lg">
             {isLogin ? 'Sign In' : 'Create Account'}
