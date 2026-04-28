@@ -57,3 +57,28 @@ Create the following files:
 1. `src/features/reports/services/reportApi.ts`: API function to POST `multipart/form-data` to the backend. Include TypeScript definitions for the expected API response (e.g., returning the AI depth estimation).
 2. `src/features/reports/components/ImageDropzone.tsx`: A drag-and-drop zone for uploading a photo with file validation (max 5MB, jpeg/png). Ensure event handlers (drag, drop, change) are properly typed.
 3. `src/features/reports/pages/SubmitReportPage.tsx`: A page combining `useGeolocation` and `ImageDropzone`. On submit, show a success message displaying the AI's estimated water depth. Ensure the UI aligns with a mobile-first, one-handed UX.
+
+### Prompt 10: The Authentication Feature
+Build the Authentication feature to secure the "Ground Truth" reporting system. This must follow Feature-Driven Design and our dark-mode UI/UX guidelines.
+
+Create the following files:
+1. `src/features/auth/authSlice.ts`: A Redux slice holding `user` (object or null), `token` (string or null), and `status` (idle, loading, failed). Export the reducer and actions (e.g., `setCredentials`, `logout`).
+2. `src/features/auth/services/authApi.ts`: Axios functions for `login(credentials)` and `register(userData)`. Ensure request payloads and responses are strictly typed with TypeScript interfaces.
+3. `src/features/auth/pages/AuthPage.tsx`: A dual-purpose page handling both Login and Registration. 
+    - **UI Rules**: Center a minimal form card on a Deep Slate (`bg-slate-900`) background. The card itself should be Muted Navy (`bg-slate-800`) with rounded corners. Use the Poppins font for headers.
+    - **Inputs**: Use accessible, strongly-typed input fields.
+    - **Actions**: Use the global `Button` component (Vivid Cyan) for submission.
+4. `src/components/ProtectedRoute.tsx`: A global wrapper component. It should check the Redux `authSlice` for a valid token. If missing, redirect the user to `/login`. If present, render the `children`.
+
+### Prompt 11: Map Enhancements & Profile Feature
+Complete the user flow by adding the safe-route search overlay and a user profile page.
+
+Create the following files:
+1. `src/features/map/components/RouteSearch.tsx`: A search bar component that floats over the `LiveMap`.
+    - **UI Rules**: It must use the **Glassmorphism** style (`bg-white/10 backdrop-blur-md border border-white/5`) and fully rounded/pill-shaped corners (`rounded-full`) so it doesn't block the underlying street grid. Position it at the top of the screen (`absolute top-4 left-4 right-4`).
+2. `src/features/profile/pages/ProfilePage.tsx`: A simple dashboard for the authenticated user.
+    - **Content**: Display the user's email/name and a placeholder list of "Past Reports Submitted." Include a "Log Out" button that clears the `authSlice` and redirects to `/`.
+    - **UI Rules**: Use the Deep Slate background and Muted Navy cards.
+3. `src/app/routes.tsx` (Update): Update the router configuration to finalize the flow.
+    - Add `/login` and `/register` routes pointing to `AuthPage`.
+    - Wrap the `/map`, `/report`, and `/profile` routes inside the `ProtectedRoute` component to ensure only authenticated residents can access the live map and reporting tools.
