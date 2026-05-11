@@ -20,10 +20,10 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: 'Live Map', href: '/map' },
+    { label: 'Dashboard', href: '/dashboard' },
     { label: 'Submit Report', href: '/report' },
     { label: 'Risk Alerts', href: '#' },
     { label: 'About', href: '#' },
-    { label: 'FAQs', href: '#' },
   ];
 
   return (

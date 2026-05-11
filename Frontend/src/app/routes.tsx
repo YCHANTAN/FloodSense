@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import React from 'react';
 import LiveMap from '@/features/map/components/LiveMap';
+import DashboardPage from '@/features/analytics/pages/DashboardPage';
 import SubmitReportPage from '@/features/reports/pages/SubmitReportPage';
 import AuthPage from '@/features/auth/pages/AuthPage';
 import ProfilePage from '@/features/profile/pages/ProfilePage';
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <LiveMap />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
       </ProtectedRoute>
     ),
   },
