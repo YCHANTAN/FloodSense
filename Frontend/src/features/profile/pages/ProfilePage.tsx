@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '@/app/store';
 import { logout } from '@/features/auth/authSlice';
 import Button from '@/components/Button/Button';
-import { User, Mail, History, LogOut, ChevronLeft } from 'lucide-react';
+import { User, Mail, History, LogOut, ArrowLeft } from 'lucide-react';
 
 const ProfilePage: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -17,15 +17,19 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white font-inter p-6">
-      {/* Header */}
-      <div className="flex items-center mb-10">
-        <button 
-          onClick={() => navigate('/')}
-          className="p-2 hover:bg-slate-800 rounded-full transition-colors mr-2"
+    <div className="min-h-screen bg-[#0f172a] text-white font-inter p-6 relative">
+      {/* Header with Standardized Back Button */}
+      <div className="absolute top-6 left-6 z-10">
+        <Button 
+          variant="secondary" 
+          className="p-3 rounded-xl shadow-lg bg-[#1e293b]/80 backdrop-blur-md border border-white/10"
+          onClick={() => navigate(-1)}
         >
-          <ChevronLeft size={24} />
-        </button>
+          <ArrowLeft size={20} className="text-white" />
+        </Button>
+      </div>
+
+      <div className="flex items-center mb-10 pt-7 pl-20 px-2">
         <h1 className="text-2xl font-poppins font-bold">My Profile</h1>
       </div>
 

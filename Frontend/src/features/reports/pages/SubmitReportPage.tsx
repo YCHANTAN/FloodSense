@@ -82,7 +82,7 @@ const SubmitReportPage: React.FC = () => {
         <Button 
           variant="secondary" 
           className="p-3 rounded-xl shadow-lg bg-[#1e293b]/80 backdrop-blur-md border border-white/10"
-          onClick={() => navigate('/map')}
+          onClick={() => navigate(-1)}
         >
           <ArrowLeft size={20} className="text-white" />
         </Button>

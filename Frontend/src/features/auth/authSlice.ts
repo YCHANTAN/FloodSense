@@ -13,12 +13,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: {
-    id: 'mock-123',
-    email: 'resident@floodsense.dev',
-    name: 'Cebu Resident',
-  },
-  token: 'mock-dev-token',
+  user: null,
+  token: localStorage.getItem('token'),
   status: 'idle',
 };
 
