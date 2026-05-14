@@ -13,7 +13,15 @@ export class BcryptHashService implements IHashService {
 }
 
 export class JwtTokenService implements ITokenService {
-  private secret = process.env.JWT_SECRET || 'secret';
+  private secret: string;
+
+  constructor() {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      throw new Error('JWT_SECRET must be defined in environment variables');
+    }
+    this.secret = secret;
+  }
 
   generate(payload: any): string {
     return jwt.sign(payload, this.secret, { expiresIn: '1d' });
