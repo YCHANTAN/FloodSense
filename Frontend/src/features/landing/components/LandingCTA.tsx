@@ -1,8 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 
 export const LandingCTA: React.FC = () => {
   const navigate = useNavigate();
+  const { token } = useSelector((state: RootState) => state.auth);
+
+  const handleClick = () => {
+    if (token) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <section className="py-20 px-6 relative overflow-hidden">
@@ -17,10 +28,10 @@ export const LandingCTA: React.FC = () => {
         </p>
         <div className="flex justify-center pt-4">
           <button 
-            onClick={() => navigate('/map')} 
+            onClick={handleClick} 
             className="px-10 py-3.5 bg-vivid-cyan text-deep-slate font-display font-bold text-lg rounded-full shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:scale-105 transition-transform"
           >
-            Get Started Free
+            {token ? 'Go to Dashboard' : 'Get Started Free'}
           </button>
         </div>
       </div>
