@@ -5,7 +5,8 @@ import { setCredentials, setStatus } from '../authSlice';
 import { login, register } from '../services/authApi';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
-import { Waves } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -47,15 +48,21 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-deep-slate flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-deep-slate flex flex-col items-center justify-center p-4 relative">
+      {/* Standardized Back Button */}
+      <div className="absolute top-6 left-6 z-10">
+        <Button 
+          variant="secondary" 
+          className="p-3 rounded-xl shadow-lg bg-[#1e293b]/80 backdrop-blur-md border border-white/10"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft size={20} className="text-white" />
+        </Button>
+      </div>
+
       {/* Branding */}
-      <div className="flex items-center gap-2 mb-8 group cursor-pointer" onClick={() => navigate('/')}>
-        <div className="bg-vivid-cyan p-2 rounded-xl">
-          <Waves className="text-deep-slate w-8 h-8" />
-        </div>
-        <span className="font-display text-3xl font-bold text-off-white tracking-tight">
-          Flood<span className="text-vivid-cyan">Sense</span>
-        </span>
+      <div className="mb-8 cursor-pointer" onClick={() => navigate('/')}>
+        <Logo className="scale-125" />
       </div>
 
       <div className="w-full max-w-md bg-muted-navy rounded-3xl p-8 border border-white/5 shadow-2xl">

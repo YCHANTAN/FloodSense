@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Waves, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { RootState } from '@/app/store';
 import { logout } from '@/features/auth/authSlice';
 import Button from '../Button/Button';
+import { Logo } from '../Logo';
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -30,13 +31,8 @@ export const Navbar: React.FC = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:px-6 md:py-6 transition-all duration-300 bg-deep-slate/80 backdrop-blur-lg border-b border-white/5 md:bg-transparent md:backdrop-blur-none md:border-none">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group z-50" onClick={() => setIsMenuOpen(false)}>
-          <div className="bg-vivid-cyan p-1.5 rounded-lg transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-vivid-cyan/20">
-            <Waves className="text-deep-slate w-5 h-5 md:w-6 md:h-6" />
-          </div>
-          <span className="font-display text-lg md:text-xl font-bold text-off-white tracking-tight">
-            Flood<span className="text-vivid-cyan">Sense</span>
-          </span>
+        <Link to="/" className="z-50" onClick={() => setIsMenuOpen(false)}>
+          <Logo className="scale-75 md:scale-90" />
         </Link>
 
         {/* Desktop Navigation Links - Glass Capsule */}
