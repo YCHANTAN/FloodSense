@@ -3,6 +3,7 @@ import { Navbar } from '@/components/Navbar/Navbar';
 import { HeroSection } from '../components/HeroSection';
 import { PartnerLogos } from '../components/PartnerLogos';
 import { FeaturesBentoGrid } from '../components/FeaturesBentoGrid';
+import { FloodMeaningSection } from '../components/FloodMeaningSection';
 import { LandingCTA } from '../components/LandingCTA';
 import { LandingFooter } from '../components/LandingFooter';
 
@@ -14,6 +15,7 @@ export default function LandingPage() {
         <HeroSection />
         <PartnerLogos />
         <FeaturesBentoGrid />
+        <FloodMeaningSection />
         <LandingCTA />
       </main>
       <LandingFooter />
