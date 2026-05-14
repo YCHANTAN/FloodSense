@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Map as MapIcon, Camera, Navigation, ArrowRight } from 'lucide-react';
 
 export const FeaturesBentoGrid: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-12 space-y-3">
@@ -27,9 +30,12 @@ export const FeaturesBentoGrid: React.FC = () => {
                 Our core interface provides a real-time visualization of flood depths across Cebu's major arteries and residential zones, validated by community reports.
               </p>
             </div>
-            <div className="flex items-center gap-2 text-vivid-cyan font-semibold text-sm group-hover:gap-3 transition-all cursor-pointer">
+            <button 
+              onClick={() => navigate('/map')}
+              className="flex items-center gap-2 text-vivid-cyan font-semibold text-sm group-hover:gap-3 transition-all cursor-pointer bg-transparent border-none p-0 outline-none"
+            >
               Explore the Map <ArrowRight size={16} />
-            </div>
+            </button>
           </div>
           
           {/* Visual Decoration */}
